@@ -1,0 +1,20 @@
+services:
+  site1:
+    build: ./site1
+    expose:
+      - "80"
+
+  site2:
+    build: ./site2
+    expose:
+      - "80"
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - site1
+      - site2
